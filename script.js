@@ -1,63 +1,17 @@
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
-const c = document.getElementById("canvas");
-const ctx = c.getContext("2d");
-
-let mechant = document.getElementById('mechant');
-let piou = document.getElementById('piou');
-let joueur = document.getElementById('joueur');
-
-
-
-const limitG = 0;
-const limitD = 690;
-const limitM = 400;
-
-const droite = "ArrowRight"
-const gauche = "ArrowLeft"
-const space = "Space"
-
-let posX = 345;
-let posY = 315;
-
-let posBy = 290;
-let posBx = posX + 51;
-let cptB = 0; // compteur du nb de balle tiré
-
-let ennemies = 0; // cpt ennemies
-
-let posMx = getRandomInt(700);
-let posMy = getRandomInt(50); //initalise le mechant a l'endroit du spawn avant de crée deplacement
-
-const amo = [];
-
-
-class Balle {
-    constructor(x, y) {
-        this.posBx = x;
-        this.posBy = y;
-    }
-    update() {
-        this.posBy -= 5;
-    }
-}
-
 
 function collision(balleY, balleX) {
 
-    console.log('balle: ', balleY, balleX);
-
-    if (posMy - 10 <= posY & posY <= posMy + 10 && posMx - 100 <= posX & posX <= posMx + 100) {
+    if (posMy -50 <= posY & posY <= posMy +50 && posMx -100 <= posX & posX <= posMx +100) {
         alert('GAME OVER ')
     } else if (posMy - 50 <= balleY & balleY <= posMy + 50 & posMx <= balleX & balleX <= posMx + 90) {
-        console.log('tu as hit bg')
         ennemies++;
         posMx = getRandomInt(700);
         posMy = getRandomInt(50);
     }
 }
-
 
 function aJour() {
     if(ennemies==10){
@@ -87,20 +41,21 @@ function aJour() {
         }
     };
     ctx.drawImage(joueur, posX, posY);
-    //    hero
+ 
     setTimeout((e) => touchePress, 10); // fonction de touche appeller en callback
     // REQUEST ANIMATION FRAME SE RENSEIGNER !!!!!!!!!!!!!
     window.requestAnimationFrame(aJour);
 }
 
 let touchePress = (e) => {
+    document.querySelector("h1").innerText='Go !! ';
     if (limitD <= posX) {
         posX = posX - 10;
     }
     if (limitG >= posX) {
         posX = posX + 10
     }
-    // les ligne juste au dessu empeche le vaisseau de depasser les limite du canvas
+    // les lignes juste au dessu empeche le vaisseau de depasser les limite du canvas
     switch (e.code) {
         case droite:
             posX = posX + 10;
@@ -125,5 +80,45 @@ let touchePress = (e) => {
             break;
     }
 }
+
+const c = document.getElementById("canvas");
+const ctx = c.getContext("2d");
+
+const amo = [];
+class Balle {
+    constructor(x, y) {
+        this.posBx = x;
+        this.posBy = y;
+    }
+    update() {
+        this.posBy -= 5;
+    }
+}
+
+const limitG = 0;
+const limitD = 690;
+const limitM = 400;
+
+const droite = "ArrowRight"
+const gauche = "ArrowLeft"
+const space = "Space"
+
+let mechant = document.getElementById('mechant');
+let piou = document.getElementById('piou');
+let joueur = document.getElementById('joueur');
+
+let posX = 345;
+let posY = 315;
+
+let posBy = 290;
+let posBx = posX + 51;
+let cptB = 0; // compteur du nb de balle tiré
+
+let ennemies = 0; // cpt ennemies
+
+let posMx = getRandomInt(700);
+let posMy = getRandomInt(50); //initalise le mechant a l'endroit du spawn avant de crée deplacement
+
+// appels de fct
 aJour();
 document.onkeydown = touchePress;
