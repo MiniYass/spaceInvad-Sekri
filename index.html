@@ -12,13 +12,35 @@
     <img id="joueur" src="img/player.png" style="display: none;">
 
     <div class="container">
+
         <h1>PRESS A KEY TO START</h1>
         <h2 id="finish"></h2>
-            <div class='col-12 mx-auto my-auto'>
-                <canvas id="canvas" width="800" height="400" style="border: 1px solid black;"></canvas>
-            </div>
+        <div class='col-3 mx-auto my-auto'></div> <!-- div fantome pour fond animé-->
+        <div class='col-9 mx-auto my-auto' id="etoile">
+            <canvas id="canvas" width="800" height="400"></canvas>
+
+        </div>
+
     </div>
     <script src="script.js"> </script>
+    <script src="three.r95.min.js"></script>
+    <script src="vanta.dots.min.js"></script>
+    <script>
+        VANTA.DOTS({
+            el: document.getElementById("etoile"),
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x20caff,
+            color2: 0x0,
+            size: 2.50,
+            spacing: 27.00,
+            showLines: false
+        })
+    </script>
 </body>
 
 
